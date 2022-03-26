@@ -7,9 +7,10 @@ export const FeaturedCategory = ({ homeCatHeader, items }) => {
     <div className="homepage-category-display">
       <div className="category-header h2">{homeCatHeader}</div>
       <div className="category-cards">
-        {items.map((item) => {
+        {items.map((item, index) => {
           return (
             <Link
+              key={index}
               to={
                 "/" +
                 item.categorySlug +

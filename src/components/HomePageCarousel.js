@@ -5,7 +5,7 @@ export const HomePageCarousel = ({ carousels }) => {
   return (
     <Carousel variant="dark">
       {carousels.map((carousel) => (
-        <Carousel.Item>
+        <Carousel.Item key={carousel.image}>
           <img
             className="d-block w-100 img-responsive"
             src={carousel.image}

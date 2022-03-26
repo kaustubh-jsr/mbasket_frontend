@@ -14,6 +14,7 @@ export const Home = () => {
       <ShopByCategory categories={categories} />
       {featuredCategories.map((category) => (
         <FeaturedCategory
+          key={category.homeCatHeader}
           homeCatHeader={category.homeCatHeader}
           items={category.items}
         />
