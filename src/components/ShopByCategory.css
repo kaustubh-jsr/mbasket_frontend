@@ -1,0 +1,29 @@
+.home-categories__avatar-group {
+  margin: 6rem 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  row-gap: 6rem;
+  column-gap: 3rem;
+}
+
+.homepage-category-display {
+  margin: 4rem 0;
+}
+
+.avatar > img {
+  transition: all 250ms linear;
+}
+.avatar > img:hover {
+  transform: scale(1.03);
+}
+@media screen and (max-width: 768px) {
+  .avatar {
+    width: 16rem;
+    height: 16rem;
+  }
+}
+
+.avatar {
+  text-align: center;
+}

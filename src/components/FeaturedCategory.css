@@ -1,0 +1,48 @@
+.category-cards {
+  display: flex;
+  flex-wrap: nowrap;
+  width: 100%;
+  overflow-x: auto;
+  align-items: center;
+}
+
+.btn-cart {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.homepage-category-display {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 4rem 8rem;
+}
+
+.category-cards__sample {
+  flex-grow: 1;
+  width: 30rem;
+  box-shadow: 0px 2px 8px rgb(0 0 0 / 16%);
+  transition: all 200ms ease-in-out;
+}
+
+.category-cards__sample:hover {
+  transform: scale(1.03);
+}
+
+.category-img {
+  object-fit: contain;
+}
+
+.product-card-vertical {
+  transition: all 200ms linear;
+  padding: 0 0 2rem 0;
+}
+
+.product-card-vertical:hover {
+  transform: scale(1.02);
+}
+
+.category-cards::-webkit-scrollbar {
+  display: none;
+}
