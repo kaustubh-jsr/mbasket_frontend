@@ -7,24 +7,21 @@ export const ShopByCategory = ({ categories }) => {
       <div className="category-header h2">Shop By Category</div>
       <div className="home-categories__avatar-group">
         {categories.map((category) => {
-          if (category.isActive) {
-            return (
-              <Link to="/">
+          return (
+            category.isActive && (
+              <Link to="/" key={category.name}>
                 <div className="avatar avatar-xl">
                   <img
                     className="img-responsive img-round"
                     loading="lazy"
                     src={category.avatarImg}
                     alt="avatar"
-                    srcset=""
                   />
                   <h5>{category.name}</h5>
                 </div>
               </Link>
-            );
-          } else {
-            return;
-          }
+            )
+          );
         })}
       </div>
     </div>
