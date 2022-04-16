@@ -7,10 +7,6 @@
   column-gap: 3rem;
 }
 
-.homepage-category-display {
-  margin: 4rem 0;
-}
-
 .avatar > img {
   transition: all 250ms linear;
 }

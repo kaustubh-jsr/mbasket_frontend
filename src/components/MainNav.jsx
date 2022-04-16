@@ -17,7 +17,7 @@ export const MainNav = () => {
       />
       <ul className="nav-links primary-nav-side-links flex">
         <li>
-          <Link to="./pages/login.html" className="btn btn-warning">
+          <Link to="/login" className="btn btn-warning">
             Log in
           </Link>
         </li>
