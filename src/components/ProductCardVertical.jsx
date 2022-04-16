@@ -48,7 +48,7 @@ export const ProductCardVertical = ({ item, index }) => {
 
           {item.inWishlist ? (
             <button className="btn btn-outline-secondary">
-              Remove Wishlist
+              Go to Wishlist
             </button>
           ) : (
             <button className="btn btn-outline-secondary">
