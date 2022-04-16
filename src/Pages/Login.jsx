@@ -1,9 +1,10 @@
 import React from "react";
-import { MainLayout } from "../layouts/MainLayout";
+
 export const Login = () => {
+  console.log("inside the login component");
   return (
-    <MainLayout>
+    <>
       <div>Login</div>
-    </MainLayout>
+    </>
   );
 };

@@ -84,6 +84,7 @@ export const featuredCategories = [
         slug: "strawberries",
         categorySlug: "fruits-and-vegetables",
         subcategorySlug: "fruits",
+        inWishlist: true,
       },
       {
         name: "Iceberg Lettuce",
@@ -100,6 +101,7 @@ export const featuredCategories = [
         slug: "iceberg-lettuce",
         categorySlug: "fruits-and-vegetables",
         subcategorySlug: "vegetables",
+        inWishlist: false,
       },
       {
         name: "Red Seedless grapes",
@@ -116,6 +118,7 @@ export const featuredCategories = [
         slug: "red-seedless-grapes",
         categorySlug: "fruits-and-vegetables",
         subcategorySlug: "fruits",
+        inWishlist: false,
       },
       {
         name: "Iceberg Lettuce",
@@ -132,6 +135,7 @@ export const featuredCategories = [
         slug: "iceberg-lettuce",
         categorySlug: "fruits-and-vegetables",
         subcategorySlug: "vegetables",
+        inWishlist: true,
       },
       {
         name: "Red Seedless grapes",
@@ -148,6 +152,7 @@ export const featuredCategories = [
         slug: "red-seedless-grapes",
         categorySlug: "fruits-and-vegetables",
         subcategorySlug: "fruits",
+        inWishlist: false,
       },
       {
         name: "Iceberg Lettuce",
@@ -164,6 +169,7 @@ export const featuredCategories = [
         slug: "iceberg-lettuce",
         categorySlug: "fruits-and-vegetables",
         subcategorySlug: "vegetables",
+        inWishlist: false,
       },
     ],
   },
@@ -184,6 +190,7 @@ export const featuredCategories = [
         slug: "strawberries",
         categorySlug: "fruits-and-vegetables",
         subcategorySlug: "fruits",
+        inWishlist: false,
       },
       {
         name: "Munch",
@@ -199,6 +206,7 @@ export const featuredCategories = [
         slug: "iceberg-lettuce",
         categorySlug: "fruits-and-vegetables",
         subcategorySlug: "vegetables",
+        inWishlist: false,
       },
       {
         name: "Dark Fantasy",
@@ -214,6 +222,7 @@ export const featuredCategories = [
         slug: "red-seedless-grapes",
         categorySlug: "fruits-and-vegetables",
         subcategorySlug: "fruits",
+        inWishlist: false,
       },
       {
         name: "Nutrichoice Biscuits",
@@ -229,6 +238,7 @@ export const featuredCategories = [
         slug: "iceberg-lettuce",
         categorySlug: "fruits-and-vegetables",
         subcategorySlug: "vegetables",
+        inWishlist: true,
       },
       {
         name: "Act Two Popcorn",
@@ -244,6 +254,7 @@ export const featuredCategories = [
         slug: "red-seedless-grapes",
         categorySlug: "fruits-and-vegetables",
         subcategorySlug: "fruits",
+        inWishlist: false,
       },
       {
         name: "Haldiram Bhujia",
@@ -259,6 +270,7 @@ export const featuredCategories = [
         slug: "strawberries",
         categorySlug: "fruits-and-vegetables",
         subcategorySlug: "fruits",
+        inWishlist: true,
       },
     ],
   },
