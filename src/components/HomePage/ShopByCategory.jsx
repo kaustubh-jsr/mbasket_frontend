@@ -9,7 +9,10 @@ export const ShopByCategory = ({ categories }) => {
         {categories.map((category) => {
           return (
             category.isActive && (
-              <Link to="/" key={category.name}>
+              <Link
+                to={`category/${category.categorySlug}`}
+                key={category.categorySlug}
+              >
                 <div className="avatar avatar-xl">
                   <img
                     className="img-responsive img-round"
