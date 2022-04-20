@@ -1,15 +1,28 @@
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { CartContext } from "../contexts/cart-context";
 import "./ProductCardVertical.css";
 
 export const ProductCardVertical = ({ item, index }) => {
+  const cart = useContext(CartContext);
+  const [itemCartQty, setItemCartQty] = useState(0);
+
+  const decCartQty = () => {
+    setItemCartQty((prevQty) => prevQty - 1);
+    cart.dispatch({ type: cart.cartActions.DECREASE_QTY, item });
+  };
+
+  const incCartQty = () => {
+    setItemCartQty((prevQty) => prevQty + 1);
+    cart.dispatch({ type: cart.cartActions.INCREASE_QTY, item });
+  };
+
+  const addtoCart = () => {
+    setItemCartQty((prevQty) => prevQty + 1);
+    cart.dispatch({ type: cart.cartActions.ADD_TO_CART, item });
+  };
   return (
-    <Link
-      key={index}
-      to={
-        "/" + item.categorySlug + "/" + item.subcategorySlug + "/" + item.slug
-      }
-      className="card product-card-vertical"
-    >
+    <div className="card product-card-vertical">
       <div className="card-basic--image">
         <img
           className="card-basic--img-tag img-responsive"
@@ -19,7 +32,23 @@ export const ProductCardVertical = ({ item, index }) => {
       </div>
       <div className="card--details">
         <header className="card--header">
-          <h1 className="card--heading">{item.name}</h1>
+          <Link
+            key={index}
+            to={
+              "/category/" +
+              item.categorySlug +
+              "/" +
+              item.subcategorySlug +
+              "/" +
+              item.slug
+            }
+          >
+            <h1 className="card--heading">
+              {item.name.length > 20
+                ? item.name.slice(0, 24) + "..."
+                : item.name}
+            </h1>
+          </Link>
           <p className="card--subheading">{item.variant}</p>
           <p className="card--heading">
             {" "}
@@ -34,14 +63,18 @@ export const ProductCardVertical = ({ item, index }) => {
         </header>
 
         <div className="card--links">
-          {item.cartQuantity !== 0 ? (
+          {itemCartQty !== 0 ? (
             <>
-              <button className="btn btn-primary">-</button>
-              <h5>{item.cartQuantity}</h5>
-              <button className="btn btn-primary">+</button>
+              <button className="btn btn-primary" onClick={decCartQty}>
+                -
+              </button>
+              <h5>{itemCartQty}</h5>
+              <button className="btn btn-primary" onClick={incCartQty}>
+                +
+              </button>
             </>
           ) : (
-            <button className="btn btn-primary">
+            <button className="btn btn-primary" onClick={addtoCart}>
               <i className="fas fa-shopping-cart"></i> Add to Cart
             </button>
           )}
@@ -57,6 +90,6 @@ export const ProductCardVertical = ({ item, index }) => {
           )}
         </div>
       </div>
-    </Link>
+    </div>
   );
 };

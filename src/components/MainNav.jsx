@@ -1,7 +1,11 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { CartContext } from "../contexts/cart-context";
 import "./MainNav.css";
 
 export const MainNav = () => {
+  const cart = useContext(CartContext);
+
   return (
     <nav className="main-nav">
       <Link to="/" className="img-container nav-logo-container">
@@ -32,11 +36,11 @@ export const MainNav = () => {
         </li>
         <li>
           <Link
-            to="./pages/cart-management.html"
+            to="cart"
             className="badge-container icon-for-badge icon-md btn-cart"
           >
             <i className="fas fa-shopping-cart"></i>
-            <span className="icon-badge">3</span>
+            <span className="icon-badge">{cart.state.quantity}</span>
           </Link>
         </li>
       </ul>
