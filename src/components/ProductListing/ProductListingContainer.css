@@ -1,0 +1,16 @@
+.product-listing-container {
+  min-height: 83vh;
+}
+
+.products-coming-soon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 94vw;
+}
+
+.products-coming-soon img {
+  max-width: 80rem;
+  height: auto;
+}
