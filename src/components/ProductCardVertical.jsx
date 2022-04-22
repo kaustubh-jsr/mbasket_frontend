@@ -23,6 +23,11 @@ export const ProductCardVertical = ({ item, index }) => {
   };
   return (
     <div className="card product-card-vertical">
+      {!item.isAvailable && (
+        <div class="card-overlay">
+          <div class="overlay-text">Out of Stock</div>
+        </div>
+      )}
       <div className="card-basic--image">
         <img
           className="card-basic--img-tag img-responsive"
@@ -30,6 +35,7 @@ export const ProductCardVertical = ({ item, index }) => {
           alt="sample card"
         />
       </div>
+      {item.badge && <div class="card--badge">{item.badge}</div>}
       <div className="card--details">
         <header className="card--header">
           <Link

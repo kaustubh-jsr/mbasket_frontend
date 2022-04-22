@@ -9,8 +9,8 @@ body {
 }
 
 :root {
-  /* --btn-color-primary: #ffbb01;
-  --btn-color-primary-hover: #ffcd37; */
-  --logo-color-light: #33c637;
+  --btn-color-primary: #26a541;
+  --btn-color-primary-hover: #2cc04c;
+  --logo-color-light: #22dd28;
   --logo-color-dark: #1aa11f;
 }
