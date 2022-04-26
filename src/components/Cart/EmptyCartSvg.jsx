@@ -5,7 +5,7 @@ function EmptyCartSvg() {
     <div className="empty-cart">
       <img
         src="https://i.postimg.cc/KzgCFYHz/empty-cart-2130356-1800917.png"
-        alt=""
+        alt="Empty Cart"
         className="img-responsive"
       />
     </div>

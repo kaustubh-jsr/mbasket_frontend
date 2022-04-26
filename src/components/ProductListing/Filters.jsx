@@ -1,7 +1,7 @@
 import React from "react";
 import FilterSubcatInput from "./FilterSubcatInput";
 
-function Filters({ subcats, filterState, filterDispatch }) {
+function Filters({ subcats, filterState, filterDispatch, items }) {
   return (
     <aside className="sidenav sidenav-filter-section">
       <section className="sidenav-section">
@@ -22,6 +22,7 @@ function Filters({ subcats, filterState, filterDispatch }) {
               filterState={filterState}
               filterDispatch={filterDispatch}
               subcategory={subcategory}
+              items={items}
             />
           ))}
         </fieldset>

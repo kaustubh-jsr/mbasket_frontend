@@ -1,0 +1,14 @@
+.page-404 {
+  min-height: 87vh;
+  display: flex;
+  justify-content: space-evenly;
+  flex-flow: column;
+}
+
+.page-404 .img-container {
+  height: 50vh;
+}
+
+.page-404 .img-responsive {
+  object-fit: contain;
+}

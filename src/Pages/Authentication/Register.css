@@ -1,0 +1,14 @@
+.signup-card {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
+  padding: 3rem 4rem;
+  height: max-content;
+  max-width: 50rem;
+  margin: 2rem auto;
+}
+
+.signup-input {
+  border: 1px solid var(--text-color-light-grey);
+  font-size: 1.5rem;
+}

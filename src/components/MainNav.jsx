@@ -1,11 +1,18 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/auth-context";
 import { CartContext } from "../contexts/cart-context";
 import "./MainNav.css";
 
 export const MainNav = () => {
   const cart = useContext(CartContext);
+  const navigate = useNavigate();
+  const auth = useAuth();
 
+  const logoutHandler = () => {
+    auth.logout();
+    navigate("/");
+  };
   return (
     <nav className="main-nav">
       <Link to="/" className="img-container nav-logo-container">
@@ -21,17 +28,23 @@ export const MainNav = () => {
       />
       <ul className="nav-links primary-nav-side-links flex">
         <li>
-          <Link to="/login" className="btn btn-warning">
-            Log in
-          </Link>
+          {auth.token ? (
+            <button className="btn btn-warning" onClick={logoutHandler}>
+              Log out
+            </button>
+          ) : (
+            <Link to="/login" className="btn btn-warning">
+              Log in
+            </Link>
+          )}
         </li>
         <li>
           <Link
-            to="./pages/wishlist-page.html"
+            to="wishlist"
             className="badge-container icon-for-badge icon-md btn-cart"
           >
             <i className="fas fa-heart"></i>
-            <span className="icon-badge">5</span>
+            {/* <span className="icon-badge">5</span> */}
           </Link>
         </li>
         <li>
@@ -40,7 +53,7 @@ export const MainNav = () => {
             className="badge-container icon-for-badge icon-md btn-cart"
           >
             <i className="fas fa-shopping-cart"></i>
-            <span className="icon-badge">{cart.state.quantity}</span>
+            {/* <span className="icon-badge">{cart.state.quantity}</span> */}
           </Link>
         </li>
       </ul>

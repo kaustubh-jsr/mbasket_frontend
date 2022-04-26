@@ -14,3 +14,12 @@
   max-width: 80rem;
   height: auto;
 }
+
+.placeholder-product-listing {
+  position: relative;
+  display: grid;
+}
+
+.placeholder-vertical-card-img {
+  height: 20rem;
+}

@@ -1,0 +1,9 @@
+.wishlist-item-card {
+  flex-shrink: 1;
+}
+@media screen and (max-width: 768px) {
+  .wishlist-item-card {
+    height: 22rem;
+    height: max-content;
+  }
+}

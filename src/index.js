@@ -3,6 +3,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import BasketRouter from "./Router/BasketRouter";
+import "react-toastify/dist/ReactToastify.min.css";
 
 // The routes are nested in the parent App route, which has the MainLayout Component(holding the navbar and footer)
 // The App component renders the MainLayout and a nested Outlet component for the nested routes to render their elements there.

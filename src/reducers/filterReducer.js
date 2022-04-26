@@ -1,13 +1,11 @@
 import { useReducer } from "react";
-import { useParams } from "react-router-dom";
-import { subcategories } from "../FakeData/data";
 
-const useFilterReducer = () => {
-  const params = useParams();
-  const categorySlug = params.categorySlug;
-  const subcats = subcategories.filter(
-    (subcat) => subcat.belongsToCatSlug === categorySlug
-  );
+const useFilterReducer = ({ subcats }) => {
+  // const params = useParams();
+  // const categorySlug = params.categorySlug;
+  // const subcats = subcategories.filter(
+  //   (subcat) => subcat.belongsToCatSlug === categorySlug
+  // );
   let initialSubcatFilter = {};
   for (let { subcategorySlug } of subcats) {
     initialSubcatFilter[subcategorySlug] = false;
