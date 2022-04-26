@@ -2,7 +2,6 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
 
-// export const BASE_URL = "http://127.0.0.1:8000";
 export const BASE_URL = "https://mbasket-backend-api.herokuapp.com";
 
 export const apiClient = axios.create({
