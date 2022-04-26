@@ -46,8 +46,8 @@ export const Login = () => {
   };
 
   const fillDemoCreds = () => {
-    setEmail("john.doe@gmail.com");
-    setPassword("password123");
+    setEmail("kaustubhp.jsr@gmail.com");
+    setPassword("test@mantra");
   };
 
   return (
