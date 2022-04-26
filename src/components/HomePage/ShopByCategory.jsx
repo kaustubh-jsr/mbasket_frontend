@@ -10,8 +10,8 @@ export const ShopByCategory = () => {
 
   const onGetCategories = async () => {
     const resp = await getCategoriesApi();
-    setLoading(false);
     setCategories(resp);
+    setLoading(false);
   };
 
   useEffect(() => {

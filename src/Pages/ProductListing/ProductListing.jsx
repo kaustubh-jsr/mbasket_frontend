@@ -17,8 +17,8 @@ function ProductListing() {
     const resp = await getCategoryItemsApi(categorySlug);
     setCategory(resp.category);
     setSubcategories(resp.subcategories);
-    setItemsLoading(false);
     setItems(resp.items);
+    setItemsLoading(false);
   };
 
   useEffect(() => {
