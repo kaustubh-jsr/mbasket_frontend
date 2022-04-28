@@ -9,7 +9,10 @@ function Cart() {
   const cart = useContext(CartContext);
   return (
     <div className="cart-page">
-      <div class="h2 cart-heading">Shopping Cart</div>
+      <div class="h2 cart-heading">
+        Shopping Cart{" "}
+        {cart.state.cartItems.length ? `(${cart.state.cartItems.length})` : ""}
+      </div>
       <div class="sidenav-section__div">
         <hr class="sidenav-section__divider" />
       </div>

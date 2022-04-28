@@ -12,14 +12,18 @@
   text-transform: capitalize;
   font-weight: 700;
   position: absolute;
-  bottom: 1rem;
-  left: 9rem;
+  bottom: 3px;
+  left: 8rem;
+  font-size: 4rem;
 }
 
 .category-page-img {
-  max-height: 338px;
+  max-height: 33.8rem;
 }
 
+.category-page-img-placeholder {
+  max-height: 40rem;
+}
 .category-page-img img {
   max-height: 338px;
   object-fit: cover;

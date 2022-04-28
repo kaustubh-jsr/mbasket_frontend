@@ -1,7 +1,11 @@
 import React from "react";
-import { items } from "../../FakeData/data";
 
-const FilterSubcatInput = ({ filterState, filterDispatch, subcategory }) => {
+const FilterSubcatInput = ({
+  filterState,
+  filterDispatch,
+  subcategory,
+  items,
+}) => {
   return (
     <div className="input-checkbox">
       <input

@@ -4,7 +4,7 @@
 }
 
 .cart-page {
-  min-height: 83vh;
+  min-height: 87vh;
 }
 
 .cart-page-container {
@@ -30,9 +30,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 24rem;
+  height: 30rem;
   justify-content: space-between;
-  padding-bottom: 1rem;
+  padding: 1rem;
 }
 
 .grt-msg {
@@ -43,6 +43,8 @@
 /* satisfaction gurantee msg style */
 .satisfaction-grt {
   margin: 2rem 4px;
+  padding: 0px 9px;
+  place-items: flex-end;
 }
 
 .grt-msg-header {

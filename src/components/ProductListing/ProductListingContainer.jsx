@@ -1,6 +1,4 @@
 import React from "react";
-import { useParams, useSearchParams } from "react-router-dom";
-import { items, categories, subcategories } from "../../FakeData/data";
 import useFilterReducer from "../../reducers/filterReducer";
 import {
   getDiscountFilteredData,
@@ -12,18 +10,27 @@ import Filters from "./Filters";
 import Products from "./Products";
 import "./ProductListingContainer.css";
 
-function ProductListingContainer() {
-  const params = useParams();
-  // const [searchParams, setSearchParams] = useSearchParams();
-  const categorySlug = params.categorySlug;
-  const category = categories.find(
-    (category) => category.categorySlug === categorySlug
-  );
-  const subcats = subcategories.filter(
-    (subcat) => subcat.belongsToCatSlug === category.categorySlug
-  );
+function ProductListingContainer({
+  category,
+  subcategories,
+  items,
+  itemsLoading,
+}) {
+  // const params = useParams();
+  // // const [searchParams, setSearchParams] = useSearchParams();
+  // // store items from api in state,the items are recieved as props to this component.
+  // const categorySlug = params.categorySlug;
+  // const category = categories.find(
+  //   (category) => category.categorySlug === categorySlug
+  // );
+  // const subcats = subcategories.filter(
+  //   (subcat) => subcat.belongsToCatSlug === category.categorySlug
+  // );
+  // lines 20 to 25 are not needed since both category and the subcats are coming filtered from backend
+  const categorySlug = category.categorySlug;
+  const subcats = subcategories;
 
-  const [filterState, filterDispatch] = useFilterReducer();
+  const [filterState, filterDispatch] = useFilterReducer({ subcats });
 
   const stockFilteredData = getStockFilteredData(items, filterState);
   const discountFilteredData = getDiscountFilteredData(
@@ -37,17 +44,32 @@ function ProductListingContainer() {
   const sortedData = getSortedData(subcatFilteredData, filterState);
 
   return (
-    <div className="product-listing-container">
-      {subcats.length ? (
+    <div
+      className={
+        itemsLoading
+          ? "placeholder-product-listing"
+          : "product-listing-container"
+      }
+    >
+      {itemsLoading ? (
         <>
-          <Filters
-            subcats={subcats}
-            filterState={filterState}
-            filterDispatch={filterDispatch}
+          {subcats.length ? (
+            <Filters
+              subcats={subcats}
+              filterState={filterState}
+              filterDispatch={filterDispatch}
+              items={items}
+            />
+          ) : (
+            ""
+          )}
+          <Products
+            items={sortedData}
+            categorySlug={categorySlug}
+            itemsLoading={itemsLoading}
           />
-          <Products items={sortedData} categorySlug={categorySlug} />
         </>
-      ) : (
+      ) : !itemsLoading && !subcats.length ? (
         <div className="products-coming-soon">
           <h4>
             Products coming soon, meanwhile checkout the Fruits and Vegetables
@@ -60,6 +82,20 @@ function ProductListingContainer() {
             className="img-responsive"
           />
         </div>
+      ) : (
+        <>
+          <Filters
+            subcats={subcats}
+            filterState={filterState}
+            filterDispatch={filterDispatch}
+            items={items}
+          />
+          <Products
+            items={sortedData}
+            categorySlug={categorySlug}
+            itemsLoading={itemsLoading}
+          />
+        </>
       )}
     </div>
   );
