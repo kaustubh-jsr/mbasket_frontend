@@ -1,22 +1,23 @@
-import React, { useContext } from "react";
-import { useReducer, createContext } from "react";
+import React from "react";
 import "./Cart.css";
 import CartProductCard from "../../components/Cart/CartProductCard";
-import { CartContext } from "../../contexts/cart-context";
+import { useCart } from "../../contexts/cart-context";
 import EmptyCartSvg from "../../components/Cart/EmptyCartSvg";
 
 function Cart() {
-  const cart = useContext(CartContext);
+  const cart = useCart();
   return (
     <div className="cart-page">
       <div class="h2 cart-heading">
         Shopping Cart{" "}
-        {cart.state.cartItems.length ? `(${cart.state.cartItems.length})` : ""}
+        {cart.cartState.cartTotalItems
+          ? `(${cart.cartState.cartTotalItems})`
+          : ""}
       </div>
       <div class="sidenav-section__div">
         <hr class="sidenav-section__divider" />
       </div>
-      {cart.state.cartItems.length === 0 ? (
+      {cart.cartState.cartTotalItems === 0 ? (
         <>
           <h3 className="text-center">Your cart is empty.</h3>
           <EmptyCartSvg />
@@ -24,12 +25,8 @@ function Cart() {
       ) : (
         <div class="cart-page-container grid-70-30">
           <div class="cart-items">
-            {cart.state.cartItems.map((item) => (
-              <CartProductCard
-                item={item}
-                state={cart.state}
-                dispatch={cart.dispatch}
-              />
+            {cart.cartState.cart.map((item) => (
+              <CartProductCard item={item} />
             ))}
           </div>
           <div class="order-info-sidebar card">
@@ -49,8 +46,9 @@ function Cart() {
               <hr class="sidenav-section__divider" />
             </div>
             <h5>
-              Subtotal <span class="h6">({cart.state.quantity} items)</span>:
-              Rs. {cart.state.total}
+              Subtotal{" "}
+              <span class="h6">({cart.cartState.cartTotalItems} items)</span>:
+              Rs. {cart.cartState.cartTotalAmount}
             </h5>
             <div class="sidenav-section__div">
               <hr class="sidenav-section__divider" />

@@ -11,14 +11,11 @@ export const HomePageCarousel = () => {
     const resp = await getCarouselsApi();
     setCarousels(resp);
     setLoading(false);
-    console.log(resp);
   };
 
   useEffect(() => {
     onGetCarousels();
   }, []);
-  console.log("below loading value");
-  console.log(loading);
   return (
     <Carousel variant="dark">
       {loading ? (

@@ -23,7 +23,7 @@ function ProductListing() {
 
   useEffect(() => {
     getCategoryItems(categorySlug);
-  }, []);
+  }, [categorySlug]);
 
   return (
     <>

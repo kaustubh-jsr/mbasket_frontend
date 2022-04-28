@@ -13,7 +13,7 @@ export const Register = () => {
     if (auth.token) {
       navigate("/", { replace: true });
     }
-  }, []);
+  }, [auth.token, navigate]);
   const [firstNameError, setFirstNameError] = useState("");
   const [lastNameError, setLastNameError] = useState("");
   const [emailError, setEmailError] = useState("");

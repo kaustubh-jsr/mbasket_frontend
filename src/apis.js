@@ -2,7 +2,8 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
 
-export const BASE_URL = "https://mbasket-backend-api.herokuapp.com";
+// export const BASE_URL = "https://mbasket-backend-api.herokuapp.com";
+export const BASE_URL = "http://127.0.0.1:8000";
 
 export const apiClient = axios.create({
   xsrfHeaderName: "X-CSRFToken",
@@ -296,6 +297,152 @@ export const getCategoryItemsApi = async (categorySlug) => {
     return resp.data;
   } catch (error) {
     console.log("error in getting items for product listing");
+    console.log(error.response.data);
+  }
+};
+
+export const addItemToCartApi = async (
+  itemSlug,
+  token,
+  cartDispatch,
+  CART_ACTIONS,
+  setBtnLoading
+) => {
+  try {
+    setBtnLoading(true);
+    let formData = new FormData();
+    formData.append("slug", itemSlug);
+    const resp = await apiClient({
+      method: "POST",
+      url: `${BASE_URL}/increase_item_to_cart`,
+      Authorization: {
+        "Auth-Token": token ? token : "",
+      },
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFTOKEN": csrftoken,
+        "Auth-Token": token ? token : "",
+      },
+      data: formData,
+    });
+    if (resp.status === 201) {
+      console.log("got success status,setting cart");
+      console.log("below is cartStatus from backend");
+      console.log(resp.data.cartStatus);
+      cartDispatch({
+        type: CART_ACTIONS.SET_CART_FROM_DB,
+        payload: resp.data.cartState,
+      });
+      console.log("called cartDispatch func successfully");
+    } else {
+      toast.error("Something went wrong while adding item to cart.");
+    }
+  } catch (error) {
+    console.log("error in adding item to cart");
+    toast.error("Error from backend.");
+    console.log(error.response.data);
+  } finally {
+    setBtnLoading(false);
+  }
+};
+
+export const decreaseItemFromCartApi = async (
+  itemSlug,
+  token,
+  cartDispatch,
+  CART_ACTIONS,
+  setBtnLoading
+) => {
+  setBtnLoading(true);
+  let formData = new FormData();
+  formData.append("slug", itemSlug);
+  const resp = await apiClient({
+    method: "POST",
+    url: `${BASE_URL}/decrease_item_from_cart`,
+    Authorization: {
+      "Auth-Token": token ? token : "",
+    },
+    headers: {
+      "Content-Type": "application/json",
+      "X-CSRFTOKEN": csrftoken,
+      "Auth-Token": token ? token : "",
+    },
+    data: formData,
+  });
+  if (resp.status === 201) {
+    console.log("got success status,setting cart");
+    console.log("below is cartStatus from backend");
+    console.log(resp.data.cartStatus);
+    cartDispatch({
+      type: CART_ACTIONS.SET_CART_FROM_DB,
+      payload: resp.data.cartState,
+    });
+    console.log("called cartDispatch func successfully");
+  } else {
+    toast.error("Something went wrong while decreasing item qty from cart.");
+  }
+  setBtnLoading(false);
+};
+
+export const deleteItemFromCartApi = async (
+  itemSlug,
+  token,
+  cartDispatch,
+  CART_ACTIONS,
+  setBtnLoading
+) => {
+  setBtnLoading(true);
+  let formData = new FormData();
+  formData.append("slug", itemSlug);
+  const resp = await apiClient({
+    method: "POST",
+    url: `${BASE_URL}/delete_item_from_cart`,
+    Authorization: {
+      "Auth-Token": token ? token : "",
+    },
+    headers: {
+      "Content-Type": "application/json",
+      "X-CSRFTOKEN": csrftoken,
+      "Auth-Token": token ? token : "",
+    },
+    data: formData,
+  });
+  if (resp.status === 201) {
+    console.log("got success status,setting cart");
+    console.log("below is cartStatus from backend");
+    console.log(resp.data.cartStatus);
+    cartDispatch({
+      type: CART_ACTIONS.SET_CART_FROM_DB,
+      payload: resp.data.cartState,
+    });
+    console.log("called cartDispatch func successfully");
+  } else {
+    toast.error("Something went wrong while deleting item from cart.");
+  }
+  setBtnLoading(false);
+};
+export const getCartStateApi = async (token, cartDispatch, CART_ACTIONS) => {
+  console.log("bwlo is the auth token to be sent");
+  console.log(token);
+  try {
+    const resp = await apiClient({
+      method: "GET",
+      url: `${BASE_URL}/get_cart_state`,
+      Authorization: {
+        "Auth-Token": token ? token : "",
+      },
+      params: {
+        authToken: token,
+      },
+    });
+    if (resp.status === 200) {
+      cartDispatch({
+        type: CART_ACTIONS.SET_CART_FROM_DB,
+        payload: resp.data.cartState,
+      });
+    }
+  } catch (error) {
+    console.log("error in getting cart from db");
     console.log(error.response.data);
   }
 };

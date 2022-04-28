@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useState } from "react";
 import {
   login as loginApi,
   logout as logoutApi,
@@ -9,7 +9,6 @@ const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [loading, setLoading] = useState(false);
-
   const login = async (formData, callback) => {
     setLoading(true);
     const resp = await loginApi(formData, token);
