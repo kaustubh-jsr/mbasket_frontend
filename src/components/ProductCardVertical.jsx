@@ -1,23 +1,35 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../contexts/cart-context";
 import { toast } from "react-toastify";
 import "./ProductCardVertical.css";
 import { useAuth } from "../contexts/auth-context";
-import { addItemToCartApi, decreaseItemFromCartApi } from "../apis";
+import {
+  addItemToCartApi,
+  addToWishlistApi,
+  decreaseItemFromCartApi,
+} from "../apis";
 import { useState } from "react";
 import DecreaseItemQtyButton from "./Buttons/DecreaseItemQtyButton";
 import IncreaseItemQtyButton from "./Buttons/IncreaseItemQtyButton";
 import AddToCartButton from "./Buttons/AddToCartButton";
+import { useWishlist } from "../contexts/wishlist-context";
 
 export const ProductCardVertical = ({ item, index }) => {
   const auth = useAuth();
   const { cartState, cartDispatch, CART_ACTIONS } = useCart();
+  const { wishlist, setWishlist } = useWishlist();
   const [btnLoading, setBtnLoading] = useState(false);
-
+  const navigate = useNavigate();
   let cartQty = 0;
   for (let cartItem of cartState.cart) {
     if (cartItem.slug === item.slug) {
       cartQty = cartItem.cartQty;
+    }
+  }
+  let inWishlist = false;
+  for (let wishlistItem of wishlist) {
+    if (wishlistItem.slug === item.slug) {
+      inWishlist = true;
     }
   }
 
@@ -63,7 +75,9 @@ export const ProductCardVertical = ({ item, index }) => {
   };
 
   const addToWishlist = () => {
-    auth.token ? (() => {})() : itemWishlistLoginToast(item);
+    auth.token
+      ? addToWishlistApi(auth.token, item.slug, setWishlist, setBtnLoading)
+      : itemWishlistLoginToast(item);
   };
   return (
     <div className="card product-card-vertical">
@@ -131,8 +145,12 @@ export const ProductCardVertical = ({ item, index }) => {
             <AddToCartButton incCartQty={incCartQty} btnLoading={btnLoading} />
           )}
 
-          {item.inWishlist ? (
-            <button className="btn btn-outline-secondary" disabled={btnLoading}>
+          {inWishlist ? (
+            <button
+              className="btn btn-outline-secondary"
+              onClick={() => navigate("/wishlist")}
+              disabled={btnLoading}
+            >
               Go to Wishlist
             </button>
           ) : (

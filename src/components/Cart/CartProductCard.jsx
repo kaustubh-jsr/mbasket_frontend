@@ -5,11 +5,14 @@ import {
   addItemToCartApi,
   decreaseItemFromCartApi,
   deleteItemFromCartApi,
+  moveFromCartToWishlistApi,
 } from "../../apis";
 import DecreaseItemQtyButton from "../Buttons/DecreaseItemQtyButton";
 import IncreaseItemQtyButton from "../Buttons/IncreaseItemQtyButton";
+import { useWishlist } from "../../contexts/wishlist-context";
 function CartProductCard({ item }) {
   const { cartState, cartDispatch, CART_ACTIONS } = useCart();
+  const { setWishlist } = useWishlist();
   const auth = useAuth();
   const [btnLoading, setBtnLoading] = useState(false);
   let cartQty = 0;
@@ -46,6 +49,17 @@ function CartProductCard({ item }) {
     deleteItemFromCartApi(
       item.slug,
       auth.token,
+      cartDispatch,
+      CART_ACTIONS,
+      setBtnLoading
+    );
+  };
+
+  const moveFromCartToWishlist = () => {
+    moveFromCartToWishlistApi(
+      auth.token,
+      item.slug,
+      setWishlist,
       cartDispatch,
       CART_ACTIONS,
       setBtnLoading
@@ -89,7 +103,13 @@ function CartProductCard({ item }) {
               btnLoading={btnLoading}
             />
           </div>
-          <button class="btn btn-outline-secondary">Move to Wishlist</button>
+          <button
+            class="btn btn-outline-secondary"
+            onClick={moveFromCartToWishlist}
+            disabled={btnLoading}
+          >
+            Move to Wishlist
+          </button>
         </div>
       </div>
     </div>

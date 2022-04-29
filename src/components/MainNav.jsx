@@ -2,10 +2,12 @@ import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/auth-context";
 import { CartContext, useCart } from "../contexts/cart-context";
+import { useWishlist } from "../contexts/wishlist-context";
 import "./MainNav.css";
 
 export const MainNav = () => {
   const { cartState } = useCart();
+  const { wishlist } = useWishlist();
   const navigate = useNavigate();
   const auth = useAuth();
 
@@ -44,7 +46,9 @@ export const MainNav = () => {
             className="badge-container icon-for-badge icon-md btn-cart"
           >
             <i className="fas fa-heart"></i>
-            {/* <span className="icon-badge">5</span> */}
+            {wishlist.length !== 0 && (
+              <span className="icon-badge">{wishlist.length}</span>
+            )}
           </Link>
         </li>
         <li>

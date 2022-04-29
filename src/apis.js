@@ -2,8 +2,8 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
 
-export const BASE_URL = "https://mbasket-backend-api.herokuapp.com";
-// export const BASE_URL = "http://127.0.0.1:8000";
+// export const BASE_URL = "https://mbasket-backend-api.herokuapp.com";
+export const BASE_URL = "http://127.0.0.1:8000";
 
 export const apiClient = axios.create({
   xsrfHeaderName: "X-CSRFToken",
@@ -444,5 +444,177 @@ export const getCartStateApi = async (token, cartDispatch, CART_ACTIONS) => {
   } catch (error) {
     console.log("error in getting cart from db");
     console.log(error.response.data);
+  }
+};
+
+export const getWishlistStateApi = async (token, setWishlist) => {
+  try {
+    const resp = await apiClient({
+      method: "GET",
+      url: `${BASE_URL}/get_wishlist_state`,
+      Authorization: {
+        "Auth-Token": token ? token : "",
+      },
+      params: {
+        authToken: token,
+      },
+    });
+    if (resp.status === 200) {
+      setWishlist((prev) => resp.data.wishlistState);
+    }
+  } catch (error) {
+    console.log("error in getting wishlist from db");
+    console.log(error.response.data);
+  }
+};
+export const addToWishlistApi = async (
+  token,
+  itemSlug,
+  setWishlist,
+  setBtnLoading
+) => {
+  setBtnLoading(true);
+  try {
+    let formData = new FormData();
+    formData.append("slug", itemSlug);
+    const resp = await apiClient({
+      method: "POST",
+      url: `${BASE_URL}/add_item_to_wishlist`,
+      Authorization: {
+        "Auth-Token": token ? token : "",
+      },
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFTOKEN": csrftoken,
+        "Auth-Token": token ? token : "",
+      },
+      data: formData,
+    });
+    if (resp.status === 201) {
+      setWishlist((prev) => resp.data.wishlistState);
+    }
+  } catch (error) {
+    toast.error("Error adding item to wishlist,try later.");
+    console.log(error.response.data);
+  } finally {
+    setBtnLoading(false);
+  }
+};
+
+export const removeFromWishlistApi = async (
+  token,
+  itemSlug,
+  setWishlist,
+  setBtnLoading
+) => {
+  setBtnLoading(true);
+  try {
+    let formData = new FormData();
+    formData.append("slug", itemSlug);
+    const resp = await apiClient({
+      method: "POST",
+      url: `${BASE_URL}/remove_item_from_wishlist`,
+      Authorization: {
+        "Auth-Token": token ? token : "",
+      },
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFTOKEN": csrftoken,
+        "Auth-Token": token ? token : "",
+      },
+      data: formData,
+    });
+    if (resp.status === 201) {
+      setWishlist((prev) => resp.data.wishlistState);
+    }
+  } catch (error) {
+    toast.error("Error removing item from wishlist,try later.");
+    console.log(error.response.data);
+  } finally {
+    setBtnLoading(false);
+  }
+};
+
+export const moveFromWishlistToCartApi = async (
+  token,
+  itemSlug,
+  itemInCart,
+  itemMaxInCart,
+  setWishlist,
+  cartDispatch,
+  CART_ACTIONS,
+  setBtnLoading
+) => {
+  setBtnLoading(true);
+  try {
+    let formData = new FormData();
+    formData.append("slug", itemSlug);
+    formData.append("itemInCart", itemInCart);
+    formData.append("itemMaxInCart", itemMaxInCart);
+    const resp = await apiClient({
+      method: "POST",
+      url: `${BASE_URL}/move_from_wishlist_to_cart`,
+      Authorization: {
+        "Auth-Token": token ? token : "",
+      },
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFTOKEN": csrftoken,
+        "Auth-Token": token ? token : "",
+      },
+      data: formData,
+    });
+    if (resp.status === 201) {
+      setWishlist((prev) => resp.data.wishlistState);
+      cartDispatch({
+        type: CART_ACTIONS.SET_CART_FROM_DB,
+        payload: resp.data.cartState,
+      });
+    }
+  } catch (error) {
+    toast.error("Error moving item from wishlist to cart");
+    console.log(error.response.data);
+  } finally {
+    setBtnLoading(false);
+  }
+};
+
+export const moveFromCartToWishlistApi = async (
+  token,
+  itemSlug,
+  setWishlist,
+  cartDispatch,
+  CART_ACTIONS,
+  setBtnLoading
+) => {
+  setBtnLoading(true);
+  try {
+    let formData = new FormData();
+    formData.append("slug", itemSlug);
+    const resp = await apiClient({
+      method: "POST",
+      url: `${BASE_URL}/move_from_cart_to_wishlist`,
+      Authorization: {
+        "Auth-Token": token ? token : "",
+      },
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFTOKEN": csrftoken,
+        "Auth-Token": token ? token : "",
+      },
+      data: formData,
+    });
+    if (resp.status === 201) {
+      setWishlist((prev) => resp.data.wishlistState);
+      cartDispatch({
+        type: CART_ACTIONS.SET_CART_FROM_DB,
+        payload: resp.data.cartState,
+      });
+    }
+  } catch (error) {
+    toast.error("Error moving item from cart to wishlist");
+    console.log(error.response.data);
+  } finally {
+    setBtnLoading(false);
   }
 };
