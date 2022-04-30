@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { getItemDetailApi } from "../../apis";
 import ProductDescription from "../../components/ProductDetail/ProductDescription";
 import ProductDetailContainer from "../../components/ProductDetail/ProductDetailContainer";
@@ -17,10 +17,14 @@ const ProductDetail = () => {
   return (
     <div class="product-page-container">
       {!pageLoading ? (
-        <>
-          <ProductDetailContainer item={item} />
-          <ProductDescription item={item} />
-        </>
+        item.isAvailable ? (
+          <>
+            <ProductDetailContainer item={item} />
+            <ProductDescription item={item} />
+          </>
+        ) : (
+          <Navigate to="/" state={{ replace: true }} />
+        )
       ) : (
         "Loading ..."
       )}
