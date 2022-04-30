@@ -8,7 +8,7 @@ const CommonFeatureSection = () => {
           <img
             class="img-responsive feature-icon__img"
             alt="best price"
-            src="https://blinkit.com/images/home/express-delivery-icon-93fce76.png"
+            src="https://i.postimg.cc/pymP2K8P/express-delivery-icon-93fce76.png"
           />
         </div>
         <div class="feature-desc">
@@ -24,7 +24,7 @@ const CommonFeatureSection = () => {
           <img
             class="img-responsive feature-icon__img"
             alt="best price"
-            src="https://blinkit.com/images/home/footer-best-price-icon-90b5bd7.png"
+            src="https://i.postimg.cc/dLdvCv4X/footer-best-price-icon-90b5bd7.png"
           />
         </div>
         <div class="feature-desc">
@@ -40,7 +40,7 @@ const CommonFeatureSection = () => {
           <img
             class="img-responsive feature-icon__img"
             alt="genuine products"
-            src="https://blinkit.com/images/home/footer-genuine-products-icon-d2756ce.png"
+            src="https://i.postimg.cc/qNTrXYF7/footer-genuine-products-icon-d2756ce.png"
           />
         </div>
         <div class="feature-desc">
@@ -56,7 +56,7 @@ const CommonFeatureSection = () => {
           <img
             class="img-responsive feature-icon__img"
             alt="easy returns"
-            src="https://blinkit.com/images/home/footer-easy-returns-icon-02b777e.png"
+            src="https://i.postimg.cc/75nkB9vn/footer-easy-returns-icon-02b777e.png"
           />
         </div>
         <div class="feature-desc">
