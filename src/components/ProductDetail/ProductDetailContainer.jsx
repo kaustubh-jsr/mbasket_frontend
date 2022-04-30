@@ -32,9 +32,9 @@ const ProductDetailContainer = ({ item }) => {
   }
 
   return (
-    <div class="product-detail-container">
-      <div class="product-img-section">
-        <div class="product-img">
+    <div className="product-detail-container">
+      <div className="product-img-section">
+        <div className="product-img">
           <ReactImageMagnify
             {...{
               smallImage: {
@@ -52,17 +52,17 @@ const ProductDetailContainer = ({ item }) => {
           />
         </div>
       </div>
-      <div class="product-details">
-        <div class="h3 product-name">{item.name}</div>
-        <div class="h5 product-variant">{item.variant}</div>
-        <div class="product-pricing">
-          <span class="discounted-price h5">
+      <div className="product-details">
+        <div className="h3 product-name">{item.name}</div>
+        <div className="h5 product-variant">{item.variant}</div>
+        <div className="product-pricing">
+          <span className="discounted-price h5">
             ₹ {item.discountedSellingPrice}
           </span>
-          <span class="selling-price h6">₹ {item.sellingPrice}</span>
-          <span class="chip h6">{item.discountPercent}% off</span>
+          <span className="selling-price h6">₹ {item.sellingPrice}</span>
+          <span className="chip h6">{item.discountPercent}% off</span>
         </div>
-        <div class="product-btns">
+        <div className="product-btns">
           {cartQty !== 0 ? (
             <>
               <DecreaseItemQtyButton

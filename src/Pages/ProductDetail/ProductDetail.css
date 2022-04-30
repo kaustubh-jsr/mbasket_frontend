@@ -80,6 +80,9 @@
   line-height: 1.5;
   font-weight: 200;
 }
+.item-description {
+  font-size: medium;
+}
 .feature-icon {
   width: 9rem;
   margin: 1rem;
