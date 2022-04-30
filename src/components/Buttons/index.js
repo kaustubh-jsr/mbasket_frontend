@@ -1,5 +1,11 @@
 import AddToCartButton from "./AddToCartButton";
 import DecreaseItemQtyButton from "./DecreaseItemQtyButton";
 import IncreaseItemQtyButton from "./IncreaseItemQtyButton";
+import AddToWishlistButton from "./AddToWishlistButton";
 
-export { AddToCartButton, DecreaseItemQtyButton, IncreaseItemQtyButton };
+export {
+  AddToCartButton,
+  AddToWishlistButton,
+  DecreaseItemQtyButton,
+  IncreaseItemQtyButton,
+};

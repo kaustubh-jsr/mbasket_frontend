@@ -29,23 +29,20 @@ export const login = async (formData, token) => {
       },
       data: formData,
     });
-    console.log("before resp");
-    console.log(resp.data);
-    console.log("after resp");
     return resp.data;
   } catch (error) {
     if (error.response) {
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx
-      console.log(error.response.data);
+      console.error(error.response.data);
     } else if (error.request) {
       // The request was made but no response was received
       // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
       // http.ClientRequest in node.js
-      console.log(error.request);
+      console.error(error.request);
     } else {
       // Something happened in setting up the request that triggered an Error
-      console.log("Error", error.message);
+      console.error("Error", error.message);
     }
     toast.error(error.response.data.message, {
       position: "top-right",
@@ -185,19 +182,15 @@ export const verifyOtp = async (formData, otpSessionKey, callback) => {
       },
       data: formData,
     });
-    console.log("top verification result success");
-    console.log(resp.data);
     if (resp.status === 200 && resp.data.status === "verified") {
-      console.log("otp correct");
       toast.success(resp.data.message, { theme: "colored", autoClose: 10000 });
     } else if (resp.status === 200) {
-      console.log("otp incorrect");
       toast.error(resp.data.message, { theme: "colored", autoClose: 10000 });
     }
     callback(resp.data);
   } catch (error) {
-    console.log("error in verifying otp below");
-    console.log(error.response.data);
+    console.error("error in verifying otp below");
+    console.error(error.response.data);
     callback(error.response.data);
   }
 };
@@ -215,10 +208,9 @@ export const deleteOtpFromDB = async (otp_session_key) => {
       },
       data: formData,
     });
-    console.log(resp.data);
   } catch (error) {
-    console.log("error in deleting otp from db below");
-    console.log(error.response.data);
+    console.error("error in deleting otp from db below");
+    console.error(error.response.data);
   }
 };
 
@@ -239,8 +231,8 @@ export const resetPassword = async (formData, otpSessionKey, callback) => {
     }
     callback(resp.data);
   } catch (error) {
-    console.log("error in reseting password below");
-    console.log(error.response.data);
+    console.error("error in reseting password below");
+    console.error(error.response.data);
     callback(error.response.data);
   }
 };
@@ -268,8 +260,8 @@ export const getFeaturedCategoriesApi = async () => {
     });
     return resp.data.data;
   } catch (error) {
-    console.log("error in getting feautred cats");
-    console.log(error.response.data);
+    console.error("error in getting feautred cats");
+    console.error(error.response.data);
   }
 };
 
@@ -282,8 +274,8 @@ export const testApiGetCategory = async (categorySlug) => {
     });
     return resp.data.category;
   } catch (error) {
-    console.log("error in getting test category header");
-    console.log(error.response.data);
+    console.error("error in getting test category header");
+    console.error(error.response.data);
   }
 };
 
@@ -296,8 +288,34 @@ export const getCategoryItemsApi = async (categorySlug) => {
     });
     return resp.data;
   } catch (error) {
-    console.log("error in getting items for product listing");
-    console.log(error.response.data);
+    console.error("error in getting items for product listing");
+    console.error(error.response.data);
+  }
+};
+
+export const getItemDetailApi = async (
+  itemSlug,
+  setItem,
+  setPageLoading,
+  navigate
+) => {
+  try {
+    const resp = await apiClient({
+      method: "GET",
+      url: `${BASE_URL}/get_item_detail`,
+      params: { slug: itemSlug },
+    });
+    if (resp.status === 200) {
+      setItem(resp.data.item);
+    } else if (resp.status === 204) {
+      toast.error("No such item found");
+      navigate("/", { replace: true });
+    }
+  } catch (error) {
+    toast.error(error.response.data.message);
+    navigate("/", { replace: true });
+  } finally {
+    setPageLoading(false);
   }
 };
 
@@ -326,21 +344,17 @@ export const addItemToCartApi = async (
       data: formData,
     });
     if (resp.status === 201) {
-      console.log("got success status,setting cart");
-      console.log("below is cartStatus from backend");
-      console.log(resp.data.cartStatus);
       cartDispatch({
         type: CART_ACTIONS.SET_CART_FROM_DB,
         payload: resp.data.cartState,
       });
-      console.log("called cartDispatch func successfully");
     } else {
       toast.error("Something went wrong while adding item to cart.");
     }
   } catch (error) {
-    console.log("error in adding item to cart");
+    console.error("error in adding item to cart");
     toast.error("Error from backend.");
-    console.log(error.response.data);
+    console.error(error.response.data);
   } finally {
     setBtnLoading(false);
   }
@@ -370,14 +384,10 @@ export const decreaseItemFromCartApi = async (
     data: formData,
   });
   if (resp.status === 201) {
-    console.log("got success status,setting cart");
-    console.log("below is cartStatus from backend");
-    console.log(resp.data.cartStatus);
     cartDispatch({
       type: CART_ACTIONS.SET_CART_FROM_DB,
       payload: resp.data.cartState,
     });
-    console.log("called cartDispatch func successfully");
   } else {
     toast.error("Something went wrong while decreasing item qty from cart.");
   }
@@ -408,22 +418,16 @@ export const deleteItemFromCartApi = async (
     data: formData,
   });
   if (resp.status === 201) {
-    console.log("got success status,setting cart");
-    console.log("below is cartStatus from backend");
-    console.log(resp.data.cartStatus);
     cartDispatch({
       type: CART_ACTIONS.SET_CART_FROM_DB,
       payload: resp.data.cartState,
     });
-    console.log("called cartDispatch func successfully");
   } else {
     toast.error("Something went wrong while deleting item from cart.");
   }
   setBtnLoading(false);
 };
 export const getCartStateApi = async (token, cartDispatch, CART_ACTIONS) => {
-  console.log("bwlo is the auth token to be sent");
-  console.log(token);
   try {
     const resp = await apiClient({
       method: "GET",
@@ -442,8 +446,8 @@ export const getCartStateApi = async (token, cartDispatch, CART_ACTIONS) => {
       });
     }
   } catch (error) {
-    console.log("error in getting cart from db");
-    console.log(error.response.data);
+    console.error("error in getting cart from db");
+    console.error(error.response.data);
   }
 };
 
@@ -463,8 +467,8 @@ export const getWishlistStateApi = async (token, setWishlist) => {
       setWishlist((prev) => resp.data.wishlistState);
     }
   } catch (error) {
-    console.log("error in getting wishlist from db");
-    console.log(error.response.data);
+    console.error("error in getting wishlist from db");
+    console.error(error.response.data);
   }
 };
 export const addToWishlistApi = async (
@@ -495,7 +499,7 @@ export const addToWishlistApi = async (
     }
   } catch (error) {
     toast.error("Error adding item to wishlist,try later.");
-    console.log(error.response.data);
+    console.error(error.response.data);
   } finally {
     setBtnLoading(false);
   }
@@ -613,7 +617,7 @@ export const moveFromCartToWishlistApi = async (
     }
   } catch (error) {
     toast.error("Error moving item from cart to wishlist");
-    console.log(error.response.data);
+    console.error(error.response.data);
   } finally {
     setBtnLoading(false);
   }

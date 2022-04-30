@@ -1,9 +1,7 @@
 import React from "react";
-import EmptyCartSvg from "../../components/Cart/EmptyCartSvg";
 import EmptyWishlist from "../../components/Wishlist/EmptyWishlist";
 import WishlistProductCard from "../../components/Wishlist/WishlistProductCard";
 import { useWishlist } from "../../contexts/wishlist-context";
-// import { wishlistItems } from "../../FakeData/data";
 import "./Wishlist.css";
 
 const Wishlist = () => {

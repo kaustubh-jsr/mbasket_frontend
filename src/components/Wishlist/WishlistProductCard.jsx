@@ -6,7 +6,7 @@ import { useWishlist } from "../../contexts/wishlist-context";
 import "./WishlistProductCard.css";
 const WishlistProductCard = ({ item }) => {
   const auth = useAuth();
-  const { wishlist, setWishlist } = useWishlist();
+  const { setWishlist } = useWishlist();
   const [btnLoading, setBtnLoading] = useState(false);
   const { cartState, cartDispatch, CART_ACTIONS } = useCart();
 
