@@ -2,24 +2,25 @@ import React from "react";
 import EmptyCartSvg from "../../components/Cart/EmptyCartSvg";
 import EmptyWishlist from "../../components/Wishlist/EmptyWishlist";
 import WishlistProductCard from "../../components/Wishlist/WishlistProductCard";
+import { useWishlist } from "../../contexts/wishlist-context";
 // import { wishlistItems } from "../../FakeData/data";
 import "./Wishlist.css";
 
 const Wishlist = () => {
-  const wishlistItems = [];
+  const { wishlist } = useWishlist();
   return (
     <>
       <div className="h2 cart-heading">
-        Your wishlist {wishlistItems.length ? `(${wishlistItems.length})` : ""}
+        Your wishlist {wishlist.length ? `(${wishlist.length})` : ""}
       </div>
       <div className="sidenav-section__div">
         <hr className="sidenav-section__divider" />
       </div>
       <div className="wishlist-page-container">
-        {wishlistItems.length ? (
+        {wishlist.length ? (
           <div className="wishlist-items">
             {/* Items in wishlist */}
-            {wishlistItems.map((item) => (
+            {wishlist.map((item) => (
               <WishlistProductCard item={item} />
             ))}
             {/* <WishlistProductCard /> */}

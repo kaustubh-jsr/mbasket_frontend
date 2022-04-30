@@ -1,14 +1,78 @@
-import React from "react";
+import React, { useState } from "react";
+import { useCart } from "../../contexts/cart-context";
+import { useAuth } from "../../contexts/auth-context";
+import {
+  addItemToCartApi,
+  decreaseItemFromCartApi,
+  deleteItemFromCartApi,
+  moveFromCartToWishlistApi,
+} from "../../apis";
+import DecreaseItemQtyButton from "../Buttons/DecreaseItemQtyButton";
+import IncreaseItemQtyButton from "../Buttons/IncreaseItemQtyButton";
+import { useWishlist } from "../../contexts/wishlist-context";
+function CartProductCard({ item }) {
+  const { cartState, cartDispatch, CART_ACTIONS } = useCart();
+  const { setWishlist } = useWishlist();
+  const auth = useAuth();
+  const [btnLoading, setBtnLoading] = useState(false);
+  let cartQty = 0;
+  for (let cartItem of cartState.cart) {
+    if (cartItem.slug === item.slug) {
+      cartQty = cartItem.cartQty;
+    }
+  }
+  const decCartQty = () => {
+    if (auth.token) {
+      decreaseItemFromCartApi(
+        item.slug,
+        auth.token,
+        cartDispatch,
+        CART_ACTIONS,
+        setBtnLoading
+      );
+    }
+  };
 
-function CartProductCard({ item, state, dispatch }) {
+  const incCartQty = () => {
+    if (auth.token) {
+      addItemToCartApi(
+        item.slug,
+        auth.token,
+        cartDispatch,
+        CART_ACTIONS,
+        setBtnLoading
+      );
+    }
+  };
+
+  const removeItemFromCart = () => {
+    deleteItemFromCartApi(
+      item.slug,
+      auth.token,
+      cartDispatch,
+      CART_ACTIONS,
+      setBtnLoading
+    );
+  };
+
+  const moveFromCartToWishlist = () => {
+    moveFromCartToWishlistApi(
+      auth.token,
+      item.slug,
+      setWishlist,
+      cartDispatch,
+      CART_ACTIONS,
+      setBtnLoading
+    );
+  };
   return (
     <div class="card card--horizontal">
       <div class="card-basic--image card--horizontal-image">
-        <img class="card-basic--img-tag" src={item.image} alt="sample card" />
+        <img class="card-basic--img-tag" src={item.image} alt={item.name} />
       </div>
       <div class="card--badge">New</div>
       <div class="card--dismiss">
-        <button class="btn-close"></button>
+        <button class="btn-close" onClick={removeItemFromCart}></button>
       </div>
       <div class="card--details card--horizontal-details">
         <header class="card--header">
@@ -27,23 +91,25 @@ function CartProductCard({ item, state, dispatch }) {
 
         <div class="card--links">
           <div class="item-counter">
-            <button
-              class="btn btn-primary"
-              onClick={() => dispatch({ type: "decQty", item: item })}
-            >
-              {" "}
-              -{" "}
-            </button>
-            <span class="qty-in-cart">{item.cartQuantity}</span>
-            <button
-              class="btn btn-primary"
-              onClick={() => dispatch({ type: "incQty", item: item })}
-            >
-              {" "}
-              +{" "}
-            </button>
+            <DecreaseItemQtyButton
+              decCartQty={decCartQty}
+              btnLoading={btnLoading}
+            />
+            <span class="qty-in-cart">{cartQty}</span>
+            <IncreaseItemQtyButton
+              cartQty={cartQty}
+              item={item}
+              incCartQty={incCartQty}
+              btnLoading={btnLoading}
+            />
           </div>
-          <button class="btn btn-outline-secondary">Move to Wishlist</button>
+          <button
+            class="btn btn-outline-secondary"
+            onClick={moveFromCartToWishlist}
+            disabled={btnLoading}
+          >
+            Move to Wishlist
+          </button>
         </div>
       </div>
     </div>

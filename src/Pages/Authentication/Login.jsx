@@ -35,7 +35,8 @@ export const Login = () => {
       auth.login(formData, () => {
         // If the login page is reached from a private unaccessible route, this will
         // redirect it to the same page it came from, or if no previous private route is there
-        // it will redirect to the page from which login was page was reached
+        // it will redirect to the page from which login was page was reached,CAVEAT : if user reaches login from an outside site, by typing in the URl, he is redirect
+        // back to that site.
         if (from) {
           navigate(from, { replace: true });
         } else {

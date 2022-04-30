@@ -13,6 +13,7 @@ import RequireAuth from "./RequireAuth";
 import ForgotPassword from "../Pages/Authentication/ForgotPassword";
 import Page404 from "../Pages/Page404";
 import Wishlist from "../Pages/Wishlist/Wishlist";
+import { WishlistProvider } from "../contexts/wishlist-context";
 
 function BasketRouter() {
   return (
@@ -20,36 +21,38 @@ function BasketRouter() {
       <BrowserRouter>
         <AuthProvider>
           <CartProvider>
-            <Routes>
-              <Route path="/" element={<App />}>
-                <Route index element={<Home />} />
-                <Route path="login" element={<Login />} />
-                <Route path="forgot_password" element={<ForgotPassword />} />
-                <Route path="register" element={<Register />} />
-                <Route
-                  path="category/:categorySlug"
-                  element={<ProductListing />}
-                />
-                <Route
-                  path="cart"
-                  element={
-                    <RequireAuth>
-                      <Cart />
-                    </RequireAuth>
-                  }
-                />
-                <Route
-                  path="wishlist"
-                  element={
-                    <RequireAuth>
-                      <Wishlist />
-                    </RequireAuth>
-                  }
-                />
-                <Route path="*" element={<Page404 />} />
-              </Route>
-            </Routes>
-            <ToastContainer style={{ fontSize: "1.5rem" }} />
+            <WishlistProvider>
+              <Routes>
+                <Route path="/" element={<App />}>
+                  <Route index element={<Home />} />
+                  <Route path="login" element={<Login />} />
+                  <Route path="forgot_password" element={<ForgotPassword />} />
+                  <Route path="register" element={<Register />} />
+                  <Route
+                    path="category/:categorySlug"
+                    element={<ProductListing />}
+                  />
+                  <Route
+                    path="cart"
+                    element={
+                      <RequireAuth>
+                        <Cart />
+                      </RequireAuth>
+                    }
+                  />
+                  <Route
+                    path="wishlist"
+                    element={
+                      <RequireAuth>
+                        <Wishlist />
+                      </RequireAuth>
+                    }
+                  />
+                  <Route path="*" element={<Page404 />} />
+                </Route>
+              </Routes>
+              <ToastContainer style={{ fontSize: "1.5rem" }} />
+            </WishlistProvider>
           </CartProvider>
         </AuthProvider>
       </BrowserRouter>

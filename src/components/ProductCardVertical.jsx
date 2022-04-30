@@ -1,25 +1,83 @@
-import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
-import { CartContext } from "../contexts/cart-context";
+import { Link, useNavigate } from "react-router-dom";
+import { useCart } from "../contexts/cart-context";
+import { toast } from "react-toastify";
 import "./ProductCardVertical.css";
+import { useAuth } from "../contexts/auth-context";
+import {
+  addItemToCartApi,
+  addToWishlistApi,
+  decreaseItemFromCartApi,
+} from "../apis";
+import { useState } from "react";
+import DecreaseItemQtyButton from "./Buttons/DecreaseItemQtyButton";
+import IncreaseItemQtyButton from "./Buttons/IncreaseItemQtyButton";
+import AddToCartButton from "./Buttons/AddToCartButton";
+import { useWishlist } from "../contexts/wishlist-context";
 
 export const ProductCardVertical = ({ item, index }) => {
-  const cart = useContext(CartContext);
-  const [itemCartQty, setItemCartQty] = useState(0);
+  const auth = useAuth();
+  const { cartState, cartDispatch, CART_ACTIONS } = useCart();
+  const { wishlist, setWishlist } = useWishlist();
+  const [btnLoading, setBtnLoading] = useState(false);
+  const navigate = useNavigate();
+  let cartQty = 0;
+  for (let cartItem of cartState.cart) {
+    if (cartItem.slug === item.slug) {
+      cartQty = cartItem.cartQty;
+    }
+  }
+  let inWishlist = false;
+  for (let wishlistItem of wishlist) {
+    if (wishlistItem.slug === item.slug) {
+      inWishlist = true;
+    }
+  }
+
+  const itemCartAddLoginToast = (item) => {
+    toast.info(`Please login to add items to your cart`, {
+      theme: "dark",
+      hideProgressBar: true,
+      position: "bottom-center",
+      toastId: "itemCartAddLoginToast",
+    });
+  };
+  const itemWishlistLoginToast = (item) => {
+    toast.info(`Please login to add items to your wishlist`, {
+      theme: "dark",
+      hideProgressBar: true,
+      position: "bottom-center",
+      toastId: "itemWishlistLoginToast",
+    });
+  };
 
   const decCartQty = () => {
-    setItemCartQty((prevQty) => prevQty - 1);
-    cart.dispatch({ type: cart.cartActions.DECREASE_QTY, item });
+    if (auth.token) {
+      decreaseItemFromCartApi(
+        item.slug,
+        auth.token,
+        cartDispatch,
+        CART_ACTIONS,
+        setBtnLoading
+      );
+    }
   };
 
   const incCartQty = () => {
-    setItemCartQty((prevQty) => prevQty + 1);
-    cart.dispatch({ type: cart.cartActions.INCREASE_QTY, item });
+    auth.token
+      ? addItemToCartApi(
+          item.slug,
+          auth.token,
+          cartDispatch,
+          CART_ACTIONS,
+          setBtnLoading
+        )
+      : itemCartAddLoginToast(item);
   };
 
-  const addtoCart = () => {
-    setItemCartQty((prevQty) => prevQty + 1);
-    cart.dispatch({ type: cart.cartActions.ADD_TO_CART, item });
+  const addToWishlist = () => {
+    auth.token
+      ? addToWishlistApi(auth.token, item.slug, setWishlist, setBtnLoading)
+      : itemWishlistLoginToast(item);
   };
   return (
     <div className="card product-card-vertical">
@@ -69,28 +127,38 @@ export const ProductCardVertical = ({ item, index }) => {
         </header>
 
         <div className="card--links">
-          {itemCartQty !== 0 ? (
+          {cartQty !== 0 ? (
             <>
-              <button className="btn btn-primary" onClick={decCartQty}>
-                -
-              </button>
-              <h5>{itemCartQty}</h5>
-              <button className="btn btn-primary" onClick={incCartQty}>
-                +
-              </button>
+              <DecreaseItemQtyButton
+                decCartQty={decCartQty}
+                btnLoading={btnLoading}
+              />
+              <h5>{cartQty}</h5>
+              <IncreaseItemQtyButton
+                cartQty={cartQty}
+                item={item}
+                incCartQty={incCartQty}
+                btnLoading={btnLoading}
+              />
             </>
           ) : (
-            <button className="btn btn-primary" onClick={addtoCart}>
-              <i className="fas fa-shopping-cart"></i> Add to Cart
-            </button>
+            <AddToCartButton incCartQty={incCartQty} btnLoading={btnLoading} />
           )}
 
-          {item.inWishlist ? (
-            <button className="btn btn-outline-secondary">
+          {inWishlist ? (
+            <button
+              className="btn btn-outline-secondary"
+              onClick={() => navigate("/wishlist")}
+              disabled={btnLoading}
+            >
               Go to Wishlist
             </button>
           ) : (
-            <button className="btn btn-outline-secondary">
+            <button
+              className="btn btn-outline-secondary"
+              onClick={addToWishlist}
+              disabled={btnLoading}
+            >
               Add to Wishlist
             </button>
           )}
