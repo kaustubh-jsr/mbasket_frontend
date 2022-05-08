@@ -1,6 +1,6 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Mantra Basket - Ecommerce App
+An ecommerce application developed in ReactJS for frontend and Python/Django for backend.
+This repository contains the codebase for the frontend of the ecommerce application.
 
 ## Available Scripts
 
