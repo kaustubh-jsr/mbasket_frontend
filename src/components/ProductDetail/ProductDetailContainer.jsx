@@ -1,22 +1,23 @@
-import { Link, useNavigate } from "react-router-dom";
-import { useCart } from "../contexts/cart-context";
-import "./ProductCardVertical.css";
-import { useAuth } from "../contexts/auth-context";
-import { useState } from "react";
-import { useWishlist } from "../contexts/wishlist-context";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import ReactImageMagnify from "react-image-magnify";
+import { useAuth } from "../../contexts/auth-context";
+import { useCart } from "../../contexts/cart-context";
+import { useWishlist } from "../../contexts/wishlist-context";
+import { addToWishlist, decCartQty, incCartQty } from "../../utilities";
 import {
   AddToCartButton,
   DecreaseItemQtyButton,
   IncreaseItemQtyButton,
-} from "./Buttons";
-import { addToWishlist, decCartQty, incCartQty } from "../utilities";
+} from "../Buttons";
 
-export const ProductCardVertical = ({ item, index }) => {
-  const auth = useAuth();
+const ProductDetailContainer = ({ item }) => {
   const { cartState, cartDispatch, CART_ACTIONS } = useCart();
+  const auth = useAuth();
   const { wishlist, setWishlist } = useWishlist();
   const [btnLoading, setBtnLoading] = useState(false);
   const navigate = useNavigate();
+
   let cartQty = 0;
   for (let cartItem of cartState.cart) {
     if (cartItem.slug === item.slug) {
@@ -31,43 +32,37 @@ export const ProductCardVertical = ({ item, index }) => {
   }
 
   return (
-    <div className="card product-card-vertical">
-      {!item.isAvailable && (
-        <div class="card-overlay">
-          <div class="overlay-text">Out of Stock</div>
+    <div className="product-detail-container">
+      <div className="product-img-section">
+        <div className="product-img">
+          <ReactImageMagnify
+            {...{
+              smallImage: {
+                alt: item.name,
+                isFluidWidth: true,
+                src: item.image,
+                imageClassName: "product-detail-img img-responsive",
+              },
+              largeImage: {
+                src: item.image,
+                width: 1000,
+                height: 1000,
+              },
+            }}
+          />
         </div>
-      )}
-      <div className="card-basic--image">
-        <img
-          className="card-basic--img-tag img-responsive"
-          src={item.image}
-          alt="sample card"
-        />
       </div>
-      {item.badge && <div class="card--badge">{item.badge}</div>}
-      <div className="card--details">
-        <header className="card--header">
-          <Link key={index} to={"/product/" + item.slug}>
-            <h1 className="card--heading">
-              {item.name.length > 20
-                ? item.name.slice(0, 24) + "..."
-                : item.name}
-            </h1>
-          </Link>
-          <p className="card--subheading">{item.variant}</p>
-          <p className="card--heading">
-            {" "}
-            <span className="strikethrough grey-text">
-              ₹{item.sellingPrice}
-            </span>{" "}
-            ₹{item.discountedSellingPrice}{" "}
-            <span className="discount-text primary-text">
-              (Save {item.discountPercent}%)
-            </span>
-          </p>
-        </header>
-
-        <div className="card--links">
+      <div className="product-details">
+        <div className="h3 product-name">{item.name}</div>
+        <div className="h5 product-variant">{item.variant}</div>
+        <div className="product-pricing">
+          <span className="discounted-price h5">
+            ₹ {item.discountedSellingPrice}
+          </span>
+          <span className="selling-price h6">₹ {item.sellingPrice}</span>
+          <span className="chip h6">{item.discountPercent}% off</span>
+        </div>
+        <div className="product-btns">
           {cartQty !== 0 ? (
             <>
               <DecreaseItemQtyButton
@@ -112,7 +107,6 @@ export const ProductCardVertical = ({ item, index }) => {
               btnLoading={btnLoading}
             />
           )}
-
           {inWishlist ? (
             <button
               className="btn btn-outline-secondary"
@@ -137,3 +131,5 @@ export const ProductCardVertical = ({ item, index }) => {
     </div>
   );
 };
+
+export default ProductDetailContainer;

@@ -14,6 +14,7 @@ import ForgotPassword from "../Pages/Authentication/ForgotPassword";
 import Page404 from "../Pages/Page404";
 import Wishlist from "../Pages/Wishlist/Wishlist";
 import { WishlistProvider } from "../contexts/wishlist-context";
+import ProductDetail from "../Pages/ProductDetail/ProductDetail";
 
 function BasketRouter() {
   return (
@@ -31,6 +32,10 @@ function BasketRouter() {
                   <Route
                     path="category/:categorySlug"
                     element={<ProductListing />}
+                  />
+                  <Route
+                    path="/product/:itemSlug"
+                    element={<ProductDetail />}
                   />
                   <Route
                     path="cart"

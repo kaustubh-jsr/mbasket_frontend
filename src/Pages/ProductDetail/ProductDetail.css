@@ -1,0 +1,130 @@
+.product-page-container {
+  min-height: 87vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+}
+
+.product-detail-container {
+  display: flex;
+  width: 100rem;
+}
+
+.product-name {
+  font-weight: 700;
+  line-height: 1.5;
+}
+.product-variant {
+  font-weight: 500;
+  color: slategrey;
+  line-height: 1.5;
+}
+.selling-price {
+  text-decoration: line-through;
+  color: grey;
+  font-weight: 500;
+  font-size: 2rem;
+}
+.discounted-price {
+  font-weight: 500;
+  font-size: x-large;
+}
+
+.product-btns {
+  margin: 4rem 0;
+  display: flex;
+  gap: 1rem;
+}
+.chip {
+  width: max-content;
+  padding: 4px 8px;
+  display: inline-block;
+  color: white;
+  margin: 5px 2px;
+  border-radius: 3px;
+  font-weight: 500;
+  background-color: #388e3c;
+}
+
+.warn-chip {
+  background-color: #f44336;
+  color: white;
+}
+.product-img {
+  max-height: 50rem;
+  width: 50rem;
+  border: 1px solid #f0f0f0;
+}
+.out-of-stock-banner {
+  color: red;
+}
+.product-details {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-left: 2rem;
+}
+.product-pricing {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.product-description-container {
+  display: flex;
+  max-width: 100rem;
+}
+.product-description {
+  width: 80%;
+  line-height: 1.5;
+  font-weight: 200;
+}
+.item-description {
+  font-size: medium;
+}
+.feature-icon {
+  width: 9rem;
+  margin: 1rem;
+}
+
+.feature-icon__img {
+  object-fit: contain;
+}
+.app-feature {
+  display: flex;
+}
+
+.feature-desc {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 0;
+  line-height: 1.7;
+}
+.feature-desc__heading {
+  font-weight: 600;
+}
+.feature-desc__detail {
+  line-height: 1.5;
+  font-weight: lighter;
+}
+@media screen and (max-width: 1023px) {
+  .product-detail-container {
+    width: 95vw;
+  }
+  .product-img {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .product-detail-container {
+    flex-direction: column;
+  }
+  .product-description-container {
+    flex-direction: column;
+  }
+  .product-description {
+    padding-left: 1rem;
+  }
+}

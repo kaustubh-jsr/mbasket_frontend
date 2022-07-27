@@ -4,6 +4,7 @@ import getStockFilteredData from "./filterOutOfStock";
 import getSubcatFilteredData from "./filterSubcats";
 import { loginFormValidator } from "./formValidators";
 import { registerFormValidator } from "./formValidators";
+import { incCartQty, decCartQty, addToWishlist } from "./cartWishlistFunctions";
 export {
   getSortedData,
   getDiscountFilteredData,
@@ -11,4 +12,7 @@ export {
   getSubcatFilteredData,
   loginFormValidator,
   registerFormValidator,
+  incCartQty,
+  decCartQty,
+  addToWishlist,
 };

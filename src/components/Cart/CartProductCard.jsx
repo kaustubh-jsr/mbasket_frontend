@@ -1,15 +1,11 @@
 import React, { useState } from "react";
 import { useCart } from "../../contexts/cart-context";
 import { useAuth } from "../../contexts/auth-context";
-import {
-  addItemToCartApi,
-  decreaseItemFromCartApi,
-  deleteItemFromCartApi,
-  moveFromCartToWishlistApi,
-} from "../../apis";
+import { deleteItemFromCartApi, moveFromCartToWishlistApi } from "../../apis";
 import DecreaseItemQtyButton from "../Buttons/DecreaseItemQtyButton";
 import IncreaseItemQtyButton from "../Buttons/IncreaseItemQtyButton";
 import { useWishlist } from "../../contexts/wishlist-context";
+import { decCartQty, incCartQty } from "../../utilities";
 function CartProductCard({ item }) {
   const { cartState, cartDispatch, CART_ACTIONS } = useCart();
   const { setWishlist } = useWishlist();
@@ -21,30 +17,6 @@ function CartProductCard({ item }) {
       cartQty = cartItem.cartQty;
     }
   }
-  const decCartQty = () => {
-    if (auth.token) {
-      decreaseItemFromCartApi(
-        item.slug,
-        auth.token,
-        cartDispatch,
-        CART_ACTIONS,
-        setBtnLoading
-      );
-    }
-  };
-
-  const incCartQty = () => {
-    if (auth.token) {
-      addItemToCartApi(
-        item.slug,
-        auth.token,
-        cartDispatch,
-        CART_ACTIONS,
-        setBtnLoading
-      );
-    }
-  };
-
   const removeItemFromCart = () => {
     deleteItemFromCartApi(
       item.slug,
@@ -92,14 +64,30 @@ function CartProductCard({ item }) {
         <div class="card--links">
           <div class="item-counter">
             <DecreaseItemQtyButton
-              decCartQty={decCartQty}
+              decCartQty={() =>
+                decCartQty(
+                  auth.token,
+                  item.slug,
+                  cartDispatch,
+                  CART_ACTIONS,
+                  setBtnLoading
+                )
+              }
               btnLoading={btnLoading}
             />
             <span class="qty-in-cart">{cartQty}</span>
             <IncreaseItemQtyButton
               cartQty={cartQty}
               item={item}
-              incCartQty={incCartQty}
+              incCartQty={() =>
+                incCartQty(
+                  auth.token,
+                  item.slug,
+                  cartDispatch,
+                  CART_ACTIONS,
+                  setBtnLoading
+                )
+              }
               btnLoading={btnLoading}
             />
           </div>
