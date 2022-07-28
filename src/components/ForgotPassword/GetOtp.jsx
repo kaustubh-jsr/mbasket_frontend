@@ -9,6 +9,11 @@ const GetOtp = ({
 }) => {
   return (
     <form onSubmit={getOtpHandler}>
+      <hr />
+      <div className="alert alert-warning">
+        Forgotten your password? Enter your registered email address below, and
+        we'll send you an OTP to reset your password.
+      </div>
       <input
         type="email"
         className="form-field login-input"

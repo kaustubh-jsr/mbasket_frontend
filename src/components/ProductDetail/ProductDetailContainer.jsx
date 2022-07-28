@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import ReactImageMagnify from "react-image-magnify";
+// import ReactImageMagnify from "react-image-magnify";
 import { useAuth } from "../../contexts/auth-context";
 import { useCart } from "../../contexts/cart-context";
 import { useWishlist } from "../../contexts/wishlist-context";
@@ -35,7 +35,7 @@ const ProductDetailContainer = ({ item }) => {
     <div className="product-detail-container">
       <div className="product-img-section">
         <div className="product-img">
-          <ReactImageMagnify
+          {/* <ReactImageMagnify
             {...{
               smallImage: {
                 alt: item.name,
@@ -49,6 +49,11 @@ const ProductDetailContainer = ({ item }) => {
                 height: 1000,
               },
             }}
+          /> */}
+          <img
+            src={item.image}
+            alt={item.name}
+            className="product-detail-img img-responsive"
           />
         </div>
       </div>
