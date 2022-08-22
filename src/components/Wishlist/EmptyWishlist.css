@@ -1,0 +1,11 @@
+.empty-wishlist {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.empty-wishlist-img {
+  width: 100vw;
+  max-width: 80rem;
+}

@@ -1,0 +1,9 @@
+.empty-cart {
+  display: flex;
+  justify-content: center;
+  width: 98vw;
+}
+.empty-cart img {
+  width: 90%;
+  max-width: 70rem;
+}

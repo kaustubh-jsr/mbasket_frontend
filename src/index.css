@@ -9,8 +9,12 @@ body {
 }
 
 :root {
-  /* --btn-color-primary: #ffbb01;
-  --btn-color-primary-hover: #ffcd37; */
-  --logo-color-light: #33c637;
+  /* --btn-color-primary: #26a541; */
+  /* --btn-color-primary: rgb(10, 173, 10); */
+  /* background-color: rgb(10, 173, 10);
+    border: 1px solid rgb(10, 173, 10); */
+  /* --btn-color-primary-hover: #2cc04c; */
+  /* --btn-color-primary-hover: rgb(10, 141, 10); */
+  --logo-color-light: #22dd28;
   --logo-color-dark: #1aa11f;
 }

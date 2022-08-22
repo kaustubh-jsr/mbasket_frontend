@@ -1,0 +1,33 @@
+.login-page-container {
+  height: calc(90vh - 6rem);
+}
+
+.login-card {
+  display: flex;
+  flex-direction: column;
+  padding: 3rem 4rem;
+  height: max-content;
+  max-width: 50rem;
+  margin: 2rem auto;
+}
+
+.login-input {
+  border: 1px solid var(--text-color-light-grey);
+  padding: 1rem 5px;
+  font-size: 1.5rem;
+}
+
+.btn-login {
+  width: 100%;
+  margin: 2rem 0;
+}
+
+.btn-login:nth-of-type(1) {
+  margin-bottom: 0;
+}
+.login-input:nth-of-type(2) {
+  margin-bottom: 2px;
+}
+.login-input:nth-of-type(1) {
+  margin: 2rem 0;
+}

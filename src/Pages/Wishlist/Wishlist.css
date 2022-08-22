@@ -1,0 +1,23 @@
+.wishlist-page-container {
+  width: 70%;
+  margin: 2rem auto;
+  min-height: 69vh;
+}
+
+.wishlist-items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+@media screen and (max-width: 1237px) {
+  .wishlist-page-container {
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 1580px) {
+  .wishlist-page-container {
+    width: 90%;
+  }
+}

@@ -4,13 +4,17 @@ import "./FeaturedCategory.css";
 
 export const FeaturedCategory = ({ homeCatHeader, items }) => {
   return (
-    <div className="homepage-category-display">
-      <div className="category-header h2">{homeCatHeader}</div>
-      <div className="category-cards">
-        {items.map((item, index) => {
-          return <ProductCardVertical item={item} index={index} />;
-        })}
+    items.length && (
+      <div className="homepage-category-display">
+        <div className="category-header h2">{homeCatHeader}</div>
+        <div className="category-cards">
+          {items.map((item, index) => {
+            return (
+              <ProductCardVertical key={item.slug} item={item} index={index} />
+            );
+          })}
+        </div>
       </div>
-    </div>
+    )
   );
 };

@@ -1,15 +1,42 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useCart } from "../contexts/cart-context";
 import "./ProductCardVertical.css";
+import { useAuth } from "../contexts/auth-context";
+import { useState } from "react";
+import { useWishlist } from "../contexts/wishlist-context";
+import {
+  AddToCartButton,
+  DecreaseItemQtyButton,
+  IncreaseItemQtyButton,
+} from "./Buttons";
+import { addToWishlist, decCartQty, incCartQty } from "../utilities";
 
 export const ProductCardVertical = ({ item, index }) => {
+  const auth = useAuth();
+  const { cartState, cartDispatch, CART_ACTIONS } = useCart();
+  const { wishlist, setWishlist } = useWishlist();
+  const [btnLoading, setBtnLoading] = useState(false);
+  const navigate = useNavigate();
+  let cartQty = 0;
+  for (let cartItem of cartState.cart) {
+    if (cartItem.slug === item.slug) {
+      cartQty = cartItem.cartQty;
+    }
+  }
+  let inWishlist = false;
+  for (let wishlistItem of wishlist) {
+    if (wishlistItem.slug === item.slug) {
+      inWishlist = true;
+    }
+  }
+
   return (
-    <Link
-      key={index}
-      to={
-        "/" + item.categorySlug + "/" + item.subcategorySlug + "/" + item.slug
-      }
-      className="card product-card-vertical"
-    >
+    <div className="card product-card-vertical">
+      {!item.isAvailable && (
+        <div className="card-overlay">
+          <div className="overlay-text">Out of Stock</div>
+        </div>
+      )}
       <div className="card-basic--image">
         <img
           className="card-basic--img-tag img-responsive"
@@ -17,9 +44,16 @@ export const ProductCardVertical = ({ item, index }) => {
           alt="sample card"
         />
       </div>
+      {item.badge && <div className="card--badge">{item.badge}</div>}
       <div className="card--details">
         <header className="card--header">
-          <h1 className="card--heading">{item.name}</h1>
+          <Link key={index} to={"/product/" + item.slug}>
+            <h1 className="card--heading">
+              {item.name.length > 20
+                ? item.name.slice(0, 24) + "..."
+                : item.name}
+            </h1>
+          </Link>
           <p className="card--subheading">{item.variant}</p>
           <p className="card--heading">
             {" "}
@@ -34,29 +68,72 @@ export const ProductCardVertical = ({ item, index }) => {
         </header>
 
         <div className="card--links">
-          {item.cartQuantity !== 0 ? (
+          {cartQty !== 0 ? (
             <>
-              <button className="btn btn-primary">-</button>
-              <h5>{item.cartQuantity}</h5>
-              <button className="btn btn-primary">+</button>
+              <DecreaseItemQtyButton
+                decCartQty={() =>
+                  decCartQty(
+                    auth.token,
+                    item.slug,
+                    cartDispatch,
+                    CART_ACTIONS,
+                    setBtnLoading
+                  )
+                }
+                btnLoading={btnLoading}
+              />
+              <h5>{cartQty}</h5>
+              <IncreaseItemQtyButton
+                cartQty={cartQty}
+                item={item}
+                incCartQty={() =>
+                  incCartQty(
+                    auth.token,
+                    item.slug,
+                    cartDispatch,
+                    CART_ACTIONS,
+                    setBtnLoading
+                  )
+                }
+                btnLoading={btnLoading}
+              />
             </>
           ) : (
-            <button className="btn btn-primary">
-              <i className="fas fa-shopping-cart"></i> Add to Cart
-            </button>
+            <AddToCartButton
+              incCartQty={() =>
+                incCartQty(
+                  auth.token,
+                  item.slug,
+                  cartDispatch,
+                  CART_ACTIONS,
+                  setBtnLoading
+                )
+              }
+              btnLoading={btnLoading}
+            />
           )}
 
-          {item.inWishlist ? (
-            <button className="btn btn-outline-secondary">
-              Remove Wishlist
+          {inWishlist ? (
+            <button
+              className="btn btn-outline-secondary"
+              onClick={() => navigate("/wishlist")}
+              disabled={btnLoading}
+            >
+              Go to Wishlist
             </button>
           ) : (
-            <button className="btn btn-outline-secondary">
+            <button
+              className="btn btn-outline-secondary"
+              onClick={() =>
+                addToWishlist(auth.token, item.slug, setWishlist, setBtnLoading)
+              }
+              disabled={btnLoading}
+            >
               Add to Wishlist
             </button>
           )}
         </div>
       </div>
-    </Link>
+    </div>
   );
 };

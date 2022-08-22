@@ -1,8 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "./Footer.css";
+
 export const Footer = () => {
   return (
-    <footer>
+    <footer className="main-footer">
       <div className="footer-links">
         <Link
           to="https://mobile.twitter.com/kaustubh_796"
