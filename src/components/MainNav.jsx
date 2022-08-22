@@ -19,15 +19,15 @@ export const MainNav = () => {
     <nav className="main-nav">
       <Link to="/" className="img-container nav-logo-container">
         <img
-          src="https://i.postimg.cc/7656JpSC/logo-ecomm-no-padding.jpg"
+          src="https://res.cloudinary.com/kaustubh-apps/image/upload/v1660981420/logo-ecomm-no-padding_iik7p5.jpg"
           alt="mantra-logo"
         />
       </Link>
-      <input
+      {/* <input
         type="text"
         className="search-bar"
         placeholder="Search among 5000+ items in 10+ daily needs categories"
-      />
+      /> */}
       <ul className="nav-links primary-nav-side-links flex">
         <li>
           {auth.token ? (

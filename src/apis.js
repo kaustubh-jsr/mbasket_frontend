@@ -622,3 +622,63 @@ export const moveFromCartToWishlistApi = async (
     setBtnLoading(false);
   }
 };
+export const placeOrder = async (
+  token,
+  cart,
+  grandTotal,
+  deliveryAmt,
+  discountAmt,
+  setBtnLoading
+) => {
+  setBtnLoading(true);
+  try {
+    let formData = new FormData();
+    formData.append("cart", JSON.stringify(cart));
+    formData.append("grandTotal", grandTotal);
+    formData.append("deliveryAmt", deliveryAmt);
+    formData.append("discountAmt", discountAmt);
+    const resp = await apiClient({
+      method: "POST",
+      url: `${BASE_URL}/place_order`,
+      Authorization: {
+        "Auth-Token": token ? token : "",
+      },
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFTOKEN": csrftoken,
+        "Auth-Token": token ? token : "",
+      },
+      data: formData,
+    });
+    return resp;
+  } catch (error) {
+    console.error(error.response.data);
+  } finally {
+    setBtnLoading(false);
+  }
+};
+
+export const getUserDetails = async (token) => {
+  try {
+    const resp = await apiClient({
+      method: "GET",
+      headers: {
+        "Auth-Token": token ? token : "",
+      },
+      url: `${BASE_URL}/get_user_details`,
+    });
+    return resp.data;
+  } catch (error) {
+    if (error.response) {
+      console.log(error.response.data);
+      console.log(error.response.data.non_field_errors[0]);
+      console.log(error.response.status);
+      console.log(error.response.headers);
+    } else if (error.request) {
+      console.log(error.request);
+    } else {
+      console.log("Error", error.message);
+    }
+    console.log(error.config);
+  }
+};

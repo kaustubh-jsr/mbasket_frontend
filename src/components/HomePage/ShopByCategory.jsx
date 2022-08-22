@@ -25,7 +25,7 @@ export const ShopByCategory = () => {
         {loading
           ? [1, 2, 3, 4, 5, 6, 7, 8].map((num) => {
               return (
-                <div className="avatar avatar-xl">
+                <div key={num} className="avatar avatar-xl">
                   <Placeholder as={"div"} animation="wave">
                     <Placeholder
                       xs={4}
@@ -46,7 +46,8 @@ export const ShopByCategory = () => {
                 category.fields.is_active && (
                   <Link
                     to={`category/${category.fields.slug}`}
-                    key={category.slug}
+                    key={category.fields.slug}
+                    className="avatar-shadow"
                   >
                     <div className="avatar avatar-xl">
                       <img

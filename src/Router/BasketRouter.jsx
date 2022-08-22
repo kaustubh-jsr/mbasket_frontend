@@ -15,6 +15,8 @@ import Page404 from "../Pages/Page404";
 import Wishlist from "../Pages/Wishlist/Wishlist";
 import { WishlistProvider } from "../contexts/wishlist-context";
 import ProductDetail from "../Pages/ProductDetail/ProductDetail";
+import Checkout from "../Pages/Checkout/Checkout";
+import OrderPlaced from "../Pages/OrderPlaced/OrderPlaced";
 
 function BasketRouter() {
   return (
@@ -42,6 +44,22 @@ function BasketRouter() {
                     element={
                       <RequireAuth>
                         <Cart />
+                      </RequireAuth>
+                    }
+                  />
+                  <Route
+                    path="checkout"
+                    element={
+                      <RequireAuth>
+                        <Checkout />
+                      </RequireAuth>
+                    }
+                  />
+                  <Route
+                    path="order_summary"
+                    element={
+                      <RequireAuth>
+                        <OrderPlaced />
                       </RequireAuth>
                     }
                   />

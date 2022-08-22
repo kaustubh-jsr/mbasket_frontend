@@ -38,31 +38,32 @@ function CartProductCard({ item }) {
     );
   };
   return (
-    <div class="card card--horizontal">
-      <div class="card-basic--image card--horizontal-image">
-        <img class="card-basic--img-tag" src={item.image} alt={item.name} />
+    <div className="card card--horizontal">
+      <div className="card-basic--image card--horizontal-image">
+        <img className="card-basic--img-tag" src={item.image} alt={item.name} />
       </div>
-      <div class="card--badge">New</div>
-      <div class="card--dismiss">
-        <button class="btn-close" onClick={removeItemFromCart}></button>
+      <div className="card--badge">{item.badge}</div>
+      <div className="card--dismiss">
+        <button className="btn-close" onClick={removeItemFromCart}></button>
       </div>
-      <div class="card--details card--horizontal-details">
-        <header class="card--header">
-          <h1 class="card--heading">
+      <div className="card--details card--horizontal-details">
+        <header className="card--header">
+          <h1 className="card--heading">
             {item.name.length > 25 ? item.name.slice(0, 18) + "..." : item.name}{" "}
           </h1>
-          <p class="card--subheading">{item.variant}</p>
-          <p class="card--heading">
+          <p className="card--subheading">{item.variant}</p>
+          <p className="card--heading">
             {" "}
-            <span class="strikethrough grey-text">
+            <span className="strikethrough grey-text">
               ₹ {item.sellingPrice}
-            </span> ₹ {item.discountedSellingPrice}{" "}
-            <span class="discount-text primary-text">{`(Save ${item.discountPercent}%)`}</span>
+            </span>{" "}
+            ₹ {item.discountedSellingPrice}{" "}
+            <span className="discount-text primary-text">{`(Save ${item.discountPercent}%)`}</span>
           </p>
         </header>
 
-        <div class="card--links">
-          <div class="item-counter">
+        <div className="card--links">
+          <div className="item-counter">
             <DecreaseItemQtyButton
               decCartQty={() =>
                 decCartQty(
@@ -75,7 +76,7 @@ function CartProductCard({ item }) {
               }
               btnLoading={btnLoading}
             />
-            <span class="qty-in-cart">{cartQty}</span>
+            <span className="qty-in-cart">{cartQty}</span>
             <IncreaseItemQtyButton
               cartQty={cartQty}
               item={item}
@@ -92,7 +93,7 @@ function CartProductCard({ item }) {
             />
           </div>
           <button
-            class="btn btn-outline-secondary"
+            className="btn btn-outline-secondary"
             onClick={moveFromCartToWishlist}
             disabled={btnLoading}
           >

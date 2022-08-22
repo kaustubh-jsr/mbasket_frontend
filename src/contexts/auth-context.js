@@ -1,5 +1,6 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import {
+  getUserDetails as getUserDetailsApi,
   login as loginApi,
   logout as logoutApi,
   register as registerApi,
@@ -9,6 +10,21 @@ const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [loading, setLoading] = useState(false);
+  const [userDetails, setUserDetails] = useState({});
+
+  useEffect(() => {
+    //api call to set user details from backend
+    if (token) {
+      console.log("setting user details from backend");
+      (async () => {
+        const resp = await getUserDetailsApi(token);
+        setUserDetails(resp.userDetails);
+        console.log(resp.userDetails);
+      })();
+    } else {
+      // cartDispatch({ type: CART_ACTIONS.RESET_CART });
+    }
+  }, [token]);
   const login = async (formData, callback) => {
     setLoading(true);
     const resp = await loginApi(formData, token);
@@ -43,6 +59,7 @@ const AuthProvider = ({ children }) => {
 
   const value = {
     token,
+    userDetails,
     login,
     register,
     logout,

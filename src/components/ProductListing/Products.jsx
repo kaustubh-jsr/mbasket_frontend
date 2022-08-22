@@ -7,14 +7,14 @@ function Products({ items, categorySlug, itemsLoading }) {
     <div className="category-product-list-container">
       {itemsLoading
         ? [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
-            <PlaceholderProductCardVertical />
+            <PlaceholderProductCardVertical key={num} />
           ))
         : items
             .filter((item) => {
               return item.categorySlug === categorySlug;
             })
             .map((item, index) => (
-              <ProductCardVertical item={item} index={index} />
+              <ProductCardVertical key={item.slug} item={item} index={index} />
             ))}
     </div>
   );

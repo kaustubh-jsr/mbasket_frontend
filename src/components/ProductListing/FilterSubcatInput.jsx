@@ -22,7 +22,7 @@ const FilterSubcatInput = ({
           });
         }}
       />
-      <label for={subcategory.subcategorySlug}>
+      <label htmlFor={subcategory.subcategorySlug}>
         {subcategory.name} (
         {
           items.filter(
