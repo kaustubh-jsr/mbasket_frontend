@@ -125,7 +125,7 @@ const Checkout = () => {
         <div className="address-info flex flex-col">
           <h4 className="info-header">Shipping address</h4>
           <p className="font-semibold">{userDetails.full_name}</p>
-          {selectedAddress ? (
+          {/* {selectedAddress ? (
             <CheckoutAddress
               address={selectedAddress}
               setModalShow={setModalShow}
@@ -134,7 +134,7 @@ const Checkout = () => {
             <button onClick={placeOrder} className="btn btn-warning">
               Add Address
             </button>
-          )}
+          )} */}
         </div>
         <div className="address-info flex flex-col">
           <h4 className="info-header">Payment Method</h4>
