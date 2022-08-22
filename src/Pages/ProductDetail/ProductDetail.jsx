@@ -15,7 +15,7 @@ const ProductDetail = () => {
   }, [itemSlug, navigate]);
 
   return (
-    <div class="product-page-container">
+    <div className="product-page-container">
       {!pageLoading ? (
         item.isAvailable ? (
           <>

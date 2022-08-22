@@ -20,13 +20,13 @@ export default function PlaceholderProductCardVertical() {
           <Placeholder as={"p"} animation="wave">
             <Placeholder xs={12} className="card--subheading" />
           </Placeholder>
-          <p className="card--heading">
+          <div className="card--heading">
             <Placeholder as={"p"} animation="wave">
               <Placeholder xs={3} className="strikethrough grey-text" />
               {"   "}
               <Placeholder xs={7} className="discount-text primary-text" />
             </Placeholder>
-          </p>
+          </div>
         </header>
         <div className="card--links">
           <Placeholder.Button xs={5} variant="primary" />

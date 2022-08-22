@@ -19,6 +19,7 @@ function Filters({ subcats, filterState, filterDispatch, items }) {
           <legend className="h5">Subcategories</legend>
           {subcats.map((subcategory) => (
             <FilterSubcatInput
+              key={subcategory.subcategorySlug}
               filterState={filterState}
               filterDispatch={filterDispatch}
               subcategory={subcategory}
